@@ -1,0 +1,196 @@
+swagger: '2.0'
+info:
+  version: ''
+  title: Freelancers
+  description: ''
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  '/projects/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-project
+      summary: Get Project
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/project-output'
+    put:
+      operationId: PUT-project
+      summary: Update Project
+      tags:
+        - Projects
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/project-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/project-output'
+    delete:
+      operationId: DELETE-project
+      summary: Delete Project
+      tags:
+        - Projects
+      responses:
+        '204':
+          description: ''
+  /projects:
+    get:
+      operationId: LIST-projects
+      summary: List Projects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/project-output'
+    post:
+      operationId: POST-project
+      summary: Create Project
+      tags:
+        - Projects
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/project-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/project-output'
+  '/freelancers/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-freelancer
+      summary: Get Freelancer
+      tags:
+        - Freelancers
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancer-input'
+    put:
+      operationId: PUT-freelancer
+      summary: Update Freelancer
+      tags:
+        - Freelancers
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/freelancer-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancer-input'
+    delete:
+      operationId: DELETE-freelancer
+      summary: Delete Freelancer
+      tags:
+        - Freelancers
+      responses:
+        '204':
+          description: ''
+  /freelancers:
+    get:
+      operationId: LIST-freelancers
+      summary: List Freelancers
+      tags:
+        - Freelancers
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/freelancer-input'
+    post:
+      operationId: POST-freelancer
+      summary: Create Freelancer
+      tags:
+        - Freelancers
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/freelancer-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancer-input'
+definitions:
+  freelancer-input:
+    title: Freelancer Input
+    type: object
+    properties:
+      name:
+        type: string
+      location:
+        type: string
+      hourly rate:
+        type: number
+      skill:
+        type: array
+        items: {}
+      currency:
+        type: number
+    required:
+      - name
+      - hourly rate
+  project-input:
+    title: Project Input
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+      location:
+        type: string
+      skills:
+        type: array
+        items: {}
+      startdate:
+        type: string
+      enddate:
+        type: string
+    required:
+      - name
+      - skills
+      - startdate
+  project-output:
+    title: Project Output
+    allOf:
+      - type: object
+        properties:
+          description:
+            type: string
+          freelancers:
+            type: array
+            items: {}
+      - $ref: '#/definitions/project-input'
